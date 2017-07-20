@@ -26,11 +26,11 @@ defmodule SimpleBayes.Classifier.Probability do
       iex> )
       %{cat: 0.013944237739606595, dog: 0.10054155931755744}
   """
-  def for_collection(data, model, categories_map) do
+  def for_collection(data, model, categories_map, opts) do
     Map.new(data.categories, fn ({cat, [_, tokens: cat_tokens_map]}) ->
       probability = case model do
         :multinomial ->
-          Model.Multinomial.probability_of(categories_map, cat_tokens_map, data)
+          Model.Multinomial.probability_of(categories_map, cat_tokens_map, data, opts)
         :binarized_multinomial ->
           Model.BinarizedMultinomial.probability_of(categories_map, cat_tokens_map, data)
         :bernoulli ->
